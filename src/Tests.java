@@ -64,7 +64,23 @@ public class Tests extends BaseDriver{
 
         WaitAndQuit();
     }
-    //ccdvvvvvvvvvvvvvvv
-    //fasssssssssssssssssssssssssssssssssss
+
+
+    @Test
+    public void SubMenu_AccessingCourses(){
+        WebElement coursesBtn=driver.findElement(By.xpath("//a[text()='Kurslar']"));
+        actions.moveToElement(coursesBtn).build().perform();
+        List<WebElement> menu=driver.findElements(By.xpath("//a[@role='menuitem']"));
+
+        for (WebElement e : menu){
+            e.click();
+            System.out.println(e.getText().toLowerCase().substring(0,3));
+            //Assert.assertTrue("You were not redirected to the relevant course page."
+                   // ,driver.getCurrentUrl().contains(e.getText().toLowerCase().substring(0,3)));
+        }
+
+        WaitAndQuit();
+    }
+
 
 }

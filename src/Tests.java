@@ -3,6 +3,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -35,9 +37,7 @@ public class Tests extends BaseDriver{
             Assert.assertTrue("The button is not visible on the site.",btn.isDisplayed());
 
             btn.click();
-            OptionalWait(2);
-
-            WebElement logo= driver.findElement(By.cssSelector("[style='max-height: 80px']"));
+            WebElement logo=wait.until(ExpectedConditions.visibilityOfElementLocated((By.cssSelector("[style='max-height: 80px']"))));
             Assert.assertTrue("The logo is not visible on the site.",logo.isDisplayed());
 
             driver.navigate().back();
@@ -51,15 +51,15 @@ public class Tests extends BaseDriver{
         actions.moveToElement(coursesBtn).build().perform();
         List<WebElement> menu=driver.findElements(By.xpath("//a[@role='menuitem']"));
 
-        for (WebElement e : menu){
-            e.click();
+        for (int i = 0; i < menu.size(); i++) {
+            menu.get(i).click();
             OptionalWait(2);
             WebElement logo= driver.findElement(By.cssSelector("[style='max-height: 80px']"));
             Assert.assertTrue("The logo is not visible on the site.",logo.isDisplayed());
 
             logo.click();
             OptionalWait(2);
-            Assert.assertTrue("Home page have not opened",driver.getCurrentUrl().contains("https://techno.study/tr"));
+            Assert.assertTrue("Home page have not opened",driver.getCurrentUrl().equals("https://techno.study/tr"));
         }
 
         WaitAndQuit();
@@ -72,13 +72,12 @@ public class Tests extends BaseDriver{
         actions.moveToElement(coursesBtn).build().perform();
         List<WebElement> menu=driver.findElements(By.xpath("//a[@role='menuitem']"));
 
-        for (WebElement e : menu){
-            e.click();
-            System.out.println(e.getText().toLowerCase().substring(0,3));
-            //Assert.assertTrue("You were not redirected to the relevant course page."
-                   // ,driver.getCurrentUrl().contains(e.getText().toLowerCase().substring(0,3)));
+        for (int i = 0; i < menu.size() ; i++) {
+            String element=menu.get(i).getText().toLowerCase().replaceAll("\\s+","").substring(0,4);
+            menu.get(i).click();
+            Assert.assertTrue("You were not redirected to the relevant course page." ,driver.getCurrentUrl().contains(element));
+            driver.navigate().back();
         }
-
         WaitAndQuit();
     }
 

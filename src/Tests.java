@@ -109,7 +109,7 @@ public class Tests extends BaseDriver{
     }
 
     @Test
-    public void Basvuru(){
+    public void Application(){
         WebElement basvur=driver.findElement(By.xpath("//*[@class='tn-atom js-click-zero-stat']"));
         basvur.click();
         WebElement name=driver.findElement(By.xpath("//*[@placeholder='Adı Soyadı']"));

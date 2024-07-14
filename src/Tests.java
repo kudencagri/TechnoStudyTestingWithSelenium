@@ -165,6 +165,7 @@ public class Tests extends BaseDriver{
                 scrollToElement(iframe).
                 build().
                 perform();
+        WaitAndQuit();
 
     }
 }

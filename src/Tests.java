@@ -83,7 +83,7 @@ public class Tests extends BaseDriver{
     }
 
     @Test
-    public void Anasayfa_Kurslari_DropdownMenu(){
+    public void DropdownMenu(){
         WebElement programs=driver.findElement(By.xpath("//a[text()='Kurslar']"));
         actions.moveToElement(programs).build().perform();
         List<WebElement> menu=driver.findElements(By.xpath("//a[@role='menuitem']"));
